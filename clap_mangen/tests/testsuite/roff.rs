@@ -105,3 +105,17 @@ fn value_name_without_arg() {
         cmd,
     );
 }
+
+#[test]
+fn flatten_help_false() {
+    let name = "my-app";
+    let cmd = common::basic_command(name).flatten_help(false);
+    common::assert_matches(snapbox::file!["../snapshots/basic.bash.roff"], cmd);
+}
+
+#[test]
+fn flatten_help_true() {
+    let name = "my-app";
+    let cmd = common::basic_command(name).flatten_help(true);
+    common::assert_matches(snapbox::file!["../snapshots/flatten_help.roff"], cmd);
+}
