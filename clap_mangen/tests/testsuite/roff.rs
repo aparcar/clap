@@ -119,3 +119,25 @@ fn flatten_help_true() {
     let cmd = common::basic_command(name).flatten_help(true);
     common::assert_matches(snapbox::file!["../snapshots/flatten_help.roff"], cmd);
 }
+
+#[test]
+fn flatten_help_true_subcommand_required_true() {
+    let name = "my-app";
+    let cmd = common::basic_command(name)
+        .flatten_help(true)
+        .subcommand_required(true);
+    common::assert_matches(
+        snapbox::file!["../snapshots/flatten_help_subcommand_required.roff"],
+        cmd,
+    );
+}
+
+#[test]
+fn flatten_help_true_subcommand_args_conflicts_with_subcommands() {
+    let name = "my-app";
+    let cmd = common::basic_command(name)
+        .flatten_help(true)
+        .subcommand_required(false)
+        .args_conflicts_with_subcommands(false);
+    common::assert_matches(snapbox::file!["../snapshots/flatten_help.roff"], cmd);
+}
